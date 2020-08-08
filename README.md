@@ -26,7 +26,7 @@ To check if hadoop container is working go to the url in your browser.
 
      http://localhost:9870
 
-**Notice:** the hdfs-site.xml configure has the property.
+**Notice:** the hdfs-site.xml configure has the property, so don't use it in a production environment.
 
      <property>
           <name>dfs.permissions</name>
@@ -75,5 +75,20 @@ Checking the result using **cat** command on the distributed filesystem:
      1	dfs.replication
      1	dfs.permissions
 
+
+## Stopping and re-starting the container
+
+To stop the container execute the following commands, to gratefully shutdown.
+
+     hduser@localhost:~$ stop-dfs.sh
+     hduser@localhost:~$ stop-yarn.sh
+
+After that.
+
+     hduser@localhost:~$ exit
+
+To re-start the container, and go back to our Hadoop environment execute:
+
+     $ docker start -i <container-name>
 
 
