@@ -4,7 +4,7 @@ Following this steps you can build and use the image to create a Hadoop Single N
 
 ## Creating the hadoop image
 
-     $ git clone https://gitlab.com/rancavil/hadoop.git
+     $ git clone https://gitlab.com/rancavil/hadoop-single-node-cluster.git
      $ cd hadoop
      $ docker build -t hadoop .
 
@@ -56,10 +56,10 @@ Run some of the examples provided:
      ..............
      .............
      ............
-     	File Input Format Counters 
-		Bytes Read=175
-	File Output Format Counters 
-		Bytes Written=47
+     File Input Format Counters 
+          Bytes Read=175
+     File Output Format Counters 
+          Bytes Written=47
 
 Examine the output files: check the output files from the distributed filesystem and examine them:
 
