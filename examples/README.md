@@ -11,7 +11,12 @@ First of all, we have to go to the directory examples.
 Now, copy the files txt from the local filesystem to HDFS using the following commands.
 
      hduser@localhost:~/examples$ hdfs dfs -put *.txt input
-     
+
+**Note:** if you aren't created the directory input in the hadoop distributed filesystem you have to execute the following commands:
+
+     hduser@localhost:~/examples$ hdfs dfs -mkdir /user
+     hduser@localhost:~/examples$ hdfs dfs -mkdir /user/hduser
+     hduser@localhost:~/examples$ hdfs dfs -mkdir input
 
 We can check the files loaded on the distributed file system using.
 
@@ -76,7 +81,7 @@ The reducer will read every input (line) from the stdin and will count every rep
 
 ## Executing the MapReduce
 
-The following command will execute the MapReduce process using the txt files located in /user/hduser/input (HDFS), mapper.py and reducer.py. The result will be written in the distributed file system /user/hduser/output.
+The following command will execute the MapReduce process using the txt files located in **/user/hduser/input** (HDFS), **mapper.py** and **reducer.py**. The result will be written in the distributed file system **/user/hduser/output**.
 
      hduser@localhost:~/examples$ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.0.jar -file mapper.py -mapper mapper.py -file reducer.py -reducer reducer.py -input /user/hduser/input/*.txt -output /user/hduser/output
 
@@ -118,4 +123,4 @@ To check the results we can execute.
      zweite  1
 
   
-
+This is a simple way (with a simple example) to understand how MapReduce works.
