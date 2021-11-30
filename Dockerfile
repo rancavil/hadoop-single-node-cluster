@@ -28,6 +28,8 @@ COPY docker-entrypoint.sh $HADOOP_HOME/etc/hadoop/
 
 ENV PATH $PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
+ADD examples/ examples/ 
+
 EXPOSE 50070 50075 50010 50020 50090 8020 9000 9864 9870 10020 19888 8088 8030 8031 8032 8033 8040 8042 22
 
 ENTRYPOINT ["/home/hduser/hadoop-3.3.0/etc/hadoop/docker-entrypoint.sh"]
