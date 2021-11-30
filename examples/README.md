@@ -83,7 +83,7 @@ The reducer will read every input (line) from the stdin and will count every rep
 
 The following command will execute the MapReduce process using the txt files located in **/user/hduser/input** (HDFS), **mapper.py** and **reducer.py**. The result will be written in the distributed file system **/user/hduser/output**.
 
-     hduser@localhost:~/examples$ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.0.jar -file mapper.py -mapper mapper.py -file reducer.py -reducer reducer.py -input /user/hduser/input/*.txt -output /user/hduser/output
+     hduser@localhost:~/examples$ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.0.jar -mapper mapper.py -reducer reducer.py -input /user/hduser/input/*.txt -output /user/hduser/output
 
 To check the results we can execute.
 
