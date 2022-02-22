@@ -19,7 +19,7 @@ ENV YARN_RESOURCEMANAGER_USER hduser
 ENV YARN_NODEMANAGER_USER hduser
 
 ENV HADOOP_HOME /home/hduser/hadoop-3.3.0
-RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> $HADOOP_HOME/etc/hadoop/hadoop-env.sh
+RUN echo "export JAVA_HOME=/usr" >> $HADOOP_HOME/etc/hadoop/hadoop-env.sh
 COPY core-site.xml $HADOOP_HOME/etc/hadoop/
 COPY hdfs-site.xml $HADOOP_HOME/etc/hadoop/
 COPY yarn-site.xml $HADOOP_HOME/etc/hadoop/
