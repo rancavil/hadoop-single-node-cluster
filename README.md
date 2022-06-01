@@ -47,7 +47,7 @@ Copy the input files into the distributed filesystem:
 
 Run some of the examples provided:
 
-     hduser@localhost:~$ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.0.jar grep input output 'dfs[a-z.]+'
+     hduser@localhost:~$ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.3.jar grep input output 'dfs[a-z.]+'
 
      2020-08-08 01:57:02,411 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
      2020-08-08 01:57:04,754 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
