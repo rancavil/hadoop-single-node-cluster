@@ -2,6 +2,10 @@
 
 Following this steps you can build and use the image to create a Hadoop Single Node Cluster containers.
 
+# Pull the image
+
+     $ docker pull julienlau/hadoop-single-node-cluster:3.3.3
+
 ## Creating the hadoop image
 
      $ git clone https://github.com/rancavil/hadoop-single-node-cluster.git
@@ -12,9 +16,9 @@ Following this steps you can build and use the image to create a Hadoop Single N
 
 To run and create a container execute the next command:
 
-     $ docker run -it --name <container-name> -p 9864:9864 -p 9870:9870 -p 8088:8088 -p 9000:9000 --hostname <your-hostname> hadoop
+     $ docker run --name <container-name> -p 9864:9864 -p 9870:9870 -p 8088:8088 -p 9000:9000 --hostname <your-hostname> hadoop
 
-Then type the standard docker command `Ctrl+p` then `Ctrl+q` if you want to detach from the container and keep it running as a daemon.
+Then type the standard docker command `Ctrl+p` then `Ctrl+q` if you want to detach from the container and keep it running as a daemon or run directly with option `-d`.
 
 Change **container-name** by your favorite name and set **your-hostname** with by your ip or name machine. You can use **myhdfs** as your-hostname
 
@@ -27,7 +31,7 @@ You should get the following prompt:
 To check if hadoop container is working:
 
 - go to the url in your browser: http://localhost:9870
-- use hdfs bin from outside the host `docker cp <container-name>:/usr/local/bin/hdfs .` and try a mkdir `./hdfs dfs -mkdir hdfs://localhost:9000/tmp`
+- use hdfs bin from outside the host `docker cp <container-name>:/home/hduser/hadoop-3.3.3/bin/hdfs .` and try a mkdir `./hdfs dfs -mkdir hdfs://localhost:9000/tmp`
   
 **Notice**: if you want to change to another port than 9000 you must also adapt the file core-site.xml and rebuild the image... or redirect the port to say 19000 by using at docker run the option `-p 19000:9000`
 
