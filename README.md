@@ -12,7 +12,7 @@ Following this steps you can build and use the image to create a Hadoop Single N
 
 To run and create a container execute the next command:
 
-     $ docker run -it --name <container-name> -p 9864:9864 -p 9870:9870 -p 8088:8088 --hostname <your-hostname> hadoop
+     $ docker run -it --name <container-name> -p 9864:9864 -p 9870:9870 -p 8088:8088 -p 9000:9000 --hostname <your-hostname> hadoop
 
 Change **container-name** by your favorite name and set **your-hostname** with by your ip or name machine. You can use **localhost** as your-hostname
 
@@ -22,9 +22,14 @@ You should get the following prompt:
 
      hduser@localhost:~$ 
 
-To check if hadoop container is working go to the url in your browser.
-
-     http://localhost:9870
+To check if hadoop container is working:
+    - go to the url in your browser: http://localhost:9870
+    - use hdfs bin from outside the host and try a mkdir:
+    ```
+    docker cp hadoop:/home/hduser/hadoop-3.3.3/bin/hdfs .
+    hdfs dfs -ls hdfs://localhost:9000/
+    ```
+    NB: if you want to change to another port than 9000 you must also adapt the file core-site.xml and rebuild the image.
 
 **Notice:** the hdfs-site.xml configure has the property, so don't use it in a production environment.
 
@@ -92,3 +97,7 @@ To re-start the container, and go back to our Hadoop environment execute:
      $ docker start -i <container-name>
 
 
+## Data persistence
+
+This docker does not use volume. 
+Data will not be persisted beyond the life of a container instance.
