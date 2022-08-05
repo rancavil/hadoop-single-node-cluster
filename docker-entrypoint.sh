@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo service ssh start
 if [ ! -d "/tmp/hadoop-hduser/dfs/name" ]; then
-        $HADOOP_HOME/bin/hdfs namenode -format
+        $HADOOP_HOME/bin/hdfs namenode -format && echo "OK : HDFS namenode format operation finished successfully !"
 fi
 $HADOOP_HOME/sbin/start-dfs.sh
 $HADOOP_HOME/sbin/start-yarn.sh

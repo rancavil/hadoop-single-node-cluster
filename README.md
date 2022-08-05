@@ -14,22 +14,22 @@ To run and create a container execute the next command:
 
      $ docker run -it --name <container-name> -p 9864:9864 -p 9870:9870 -p 8088:8088 -p 9000:9000 --hostname <your-hostname> hadoop
 
-Change **container-name** by your favorite name and set **your-hostname** with by your ip or name machine. You can use **localhost** as your-hostname
+Then type the standard docker command `Ctrl+p` then `Ctrl+q` if you want to detach from the container and keep it running as a daemon.
+
+Change **container-name** by your favorite name and set **your-hostname** with by your ip or name machine. You can use **myhdfs** as your-hostname
 
 When you run the container, at the entrypoint you use the docker-entrypoint.sh shell that creates and starts the hadoop environment.
 
 You should get the following prompt:
 
-     hduser@localhost:~$ 
+     hduser@myhdfs:~$ 
 
 To check if hadoop container is working:
-    - go to the url in your browser: http://localhost:9870
-    - use hdfs bin from outside the host and try a mkdir:
-    ```
-    docker cp hadoop:/home/hduser/hadoop-3.3.3/bin/hdfs .
-    hdfs dfs -ls hdfs://localhost:9000/
-    ```
-    NB: if you want to change to another port than 9000 you must also adapt the file core-site.xml and rebuild the image.
+
+- go to the url in your browser: http://localhost:9870
+- use hdfs bin from outside the host `docker cp <container-name>:/usr/local/bin/hdfs .` and try a mkdir `./hdfs dfs -mkdir hdfs://localhost:9000/tmp`
+  
+**Notice**: if you want to change to another port than 9000 you must also adapt the file core-site.xml and rebuild the image... or redirect the port to say 19000 by using at docker run the option `-p 19000:9000`
 
 **Notice:** the hdfs-site.xml configure has the property, so don't use it in a production environment.
 
@@ -42,17 +42,17 @@ To check if hadoop container is working:
 
 Make the HDFS directories required to execute MapReduce jobs:
 
-     hduser@localhost:~$ hdfs dfs -mkdir /user
-     hduser@localhost:~$ hdfs dfs -mkdir /user/hduser
+     hduser@myhdfs:~$ hdfs dfs -mkdir /user
+     hduser@myhdfs:~$ hdfs dfs -mkdir /user/hduser
 
 Copy the input files into the distributed filesystem:
       
-     hduser@localhost:~$ hdfs dfs -mkdir input
-     hduser@localhost:~$ hdfs dfs -put $HADOOP_HOME/etc/hadoop/*.xml input
+     hduser@myhdfs:~$ hdfs dfs -mkdir input
+     hduser@myhdfs:~$ hdfs dfs -put $HADOOP_HOME/etc/hadoop/*.xml input
 
 Run some of the examples provided:
 
-     hduser@localhost:~$ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.3.jar grep input output 'dfs[a-z.]+'
+     hduser@myhdfs:~$ hadoop jar $HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.3.jar grep input output 'dfs[a-z.]+'
 
      2020-08-08 01:57:02,411 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
      2020-08-08 01:57:04,754 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
@@ -68,14 +68,14 @@ Run some of the examples provided:
 
 Examine the output files: check the output files from the distributed filesystem and examine them:
 
-     hduser@localhost:~$ hdfs dfs -ls output/
+     hduser@myhdfs:~$ hdfs dfs -ls output/
      Found 2 items
      -rw-r--r--   1 hduser supergroup          0 2020-08-08 01:58 output/_SUCCESS
      -rw-r--r--   1 hduser supergroup         47 2020-08-08 01:58 output/part-r-00000
 
 Checking the result using **cat** command on the distributed filesystem:
 
-     hduser@localhost:~$ hdfs dfs -cat output/*
+     hduser@myhdfs:~$ hdfs dfs -cat output/*
      1	dfsadmin
      1	dfs.replication
      1	dfs.permissions
@@ -85,12 +85,12 @@ Checking the result using **cat** command on the distributed filesystem:
 
 To stop the container execute the following commands, to gratefully shutdown.
 
-     hduser@localhost:~$ stop-dfs.sh
-     hduser@localhost:~$ stop-yarn.sh
+     hduser@myhdfs:~$ stop-dfs.sh
+     hduser@myhdfs:~$ stop-yarn.sh
 
 After that.
 
-     hduser@localhost:~$ exit
+     hduser@myhdfs:~$ exit
 
 To re-start the container, and go back to our Hadoop environment execute:
 
@@ -101,3 +101,6 @@ To re-start the container, and go back to our Hadoop environment execute:
 
 This docker does not use volume. 
 Data will not be persisted beyond the life of a container instance.
+You would clean the data by doing:
+
+     $ docker stop <container-name> && docker rm <container-name>

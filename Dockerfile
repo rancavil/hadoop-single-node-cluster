@@ -33,4 +33,11 @@ ADD examples/ examples/
 
 EXPOSE 50070 50075 50010 50020 50090 8020 9000 9864 9870 10020 19888 8088 8030 8031 8032 8033 8040 8042 22
 
-ENTRYPOINT ["/home/hduser/hadoop-${HADOOP_VERSION}/etc/hadoop/docker-entrypoint.sh"]
+WORKDIR /usr/local/bin
+RUN sudo ln -s ${HADOOP_HOME}/etc/hadoop/docker-entrypoint.sh .
+RUN sudo ln -s ${HADOOP_HOME}/bin/hdfs .
+RUN sudo ln -s ${HADOOP_HOME}/bin/hadoop .
+RUN sudo ln -s ${HADOOP_HOME}/bin/yarn .
+RUN sudo ln -s ${HADOOP_HOME}/bin/mapred .
+WORKDIR /home/hduser
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
