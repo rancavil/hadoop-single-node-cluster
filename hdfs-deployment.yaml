@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hdfs
+spec:
+  selector:
+    matchLabels:
+      run: hdfs
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: hdfs
+    spec:
+      containers:
+        - name: hdfs
+          image: julienlau/hadoop-single-node-cluster:3.3.3
+          ports:
+            - containerPort: 50070
+              protocol: TCP
+            - containerPort: 50075
+              protocol: TCP
+            - containerPort: 50010
+              protocol: TCP
+            - containerPort: 50020
+              protocol: TCP
+            - containerPort: 50090
+              protocol: TCP
+            - containerPort: 8020
+              protocol: TCP
+            - containerPort: 9000
+              protocol: TCP
+            - containerPort: 9864
+              protocol: TCP
+            - containerPort: 9870
+              protocol: TCP
+            - containerPort: 10020
+              protocol: TCP
+            - containerPort: 19888
+              protocol: TCP
+            - containerPort: 8088
+              protocol: TCP
+            - containerPort: 8030
+              protocol: TCP
+            - containerPort: 8031
+              protocol: TCP
+            - containerPort: 8032
+              protocol: TCP
+            - containerPort: 8033
+              protocol: TCP
+            - containerPort: 8040
+              protocol: TCP
+            - containerPort: 8042
+              protocol: TCP
+            - containerPort: 22
+              protocol: TCP
