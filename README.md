@@ -100,7 +100,6 @@ To re-start the container, and go back to our Hadoop environment execute:
 
      $ docker start -i <container-name>
 
-
 ## Data persistence
 
 This docker does not use volume. 
@@ -108,3 +107,17 @@ Data will not be persisted beyond the life of a container instance.
 You would clean the data by doing:
 
      $ docker stop <container-name> && docker rm <container-name>
+
+## Kubernetes 101
+
+To host it on a dev kubernetes cluster:
+```
+kubectl apply -f hdfs-deployment.yaml
+kubectl expose deployment hdfs --type=NodePort --name=hdfs-service
+kubectl get svc hdfs-service
+# get map for port 9000 of service hdfs-service
+kubectl get svc hdfs-service -o=jsonpath='{.spec.ports[?(@.port==9000)].nodePort}'
+kubectl get svc --all-namespaces -o go-template='{{range .items}}{{ $save := . }}{{range.spec.ports}}{{if .nodePort}}{{$save.metadata.namespace}}{{"/"}}{{$save.metadata.name}}{{" - "}}{{.name}}{{": "}}{{.targetPort}}{{" -> "}}{{.nodePort}}{{"\n"}}{{end}}{{end}}{{end}}'
+```
+
+At this point you should be able to run a tpcx-hs on kubernetes workload using the spark-submit option `--conf "spark.hadoop.fs.defaultFS=hdfs://hdfs-service.default.svc.cluster.local:9000/"` by using for example the following project : https://github.com/julienlau/tpcx-hs

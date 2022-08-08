@@ -21,5 +21,7 @@ $HADOOP_HOME/bin/hdfs dfs -chmod 777 /tmp
 $HADOOP_HOME/bin/hdfs dfs -chmod 777 /users
 $HADOOP_HOME/bin/hdfs dfs -chmod 777 /jars
 
+$HADOOP_HOME/bin/hdfs dfsadmin -safemode leave
+
 # keep the container running indefinitely
-tail -f /dev/null
+tail -f $HADOOP_HOME/logs/hadoop-*-namenode-*.log
